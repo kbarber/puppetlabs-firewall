@@ -34,7 +34,7 @@ class Puppet::Provider::Firewall < Puppet::Provider
 
   # Executed if method is missing. In this case we are going to catch 
   # unqualified property methods for dynamic property setting and getting.
-  def method_missing(meth, *args, &block)
+  def method_missing_foo(meth, *args, &block)
     dynamic_methods = @@resource_map.keys
     dynamic_methods << :chain
     dynamic_methods << :table

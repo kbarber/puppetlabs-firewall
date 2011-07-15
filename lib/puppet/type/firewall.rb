@@ -6,6 +6,30 @@ Puppet::Type.newtype(:firewall) do
 
   @doc = "Manipulate firewall rules"
 
+  feature :chains,
+    "Provides chain support (ie. iptables)"
+
+  feature :tables,
+    "Provides tables support (ie. iptables)"
+
+  feature :nat,
+    "Provides NAT capabilities"
+
+  feature :custom_reject,
+    "Provides the ability to custom the reject ICMP response"
+
+  feature :logging,
+    "Provides ability to log packet filtering"
+
+  feature :match_icmp,
+    "Provides the ability to match on specific ICMP types"
+
+  feature :rate_limiting,
+    "Provides rate limiting capabilities"
+
+  feature :match_state,
+    "Provides capability to match packets based on stateful inspection state."
+
   ensurable do
     desc "Create or remove this rule."
 
@@ -33,7 +57,7 @@ Puppet::Type.newtype(:firewall) do
     end
   end
 
-  newproperty(:chain) do
+  newproperty(:chain, :required_features => :chains) do
     desc "The value for the iptables -A parameter.
       Possible values are: 'INPUT', 'FORWARD', 'OUTPUT', 'PREROUTING', 'POSTROUTING'.
       Default value is 'INPUT'"
@@ -41,7 +65,7 @@ Puppet::Type.newtype(:firewall) do
     defaultto "INPUT"
   end
 
-  newproperty(:table) do
+  newproperty(:table, :required_features => :tables) do
     desc "The value for the iptables -t parameter.
       Possible values are: 'nat', 'mangle', 'filter' and 'raw'.
       Default value is 'filter'"
@@ -124,31 +148,31 @@ Puppet::Type.newtype(:firewall) do
     desc "The value for the iptables --out-interface parameter"
   end
 
-  newproperty(:tosource) do
+  newproperty(:tosource, :required_features => :nat) do
     desc "The value for the iptables --to-source parameter"
   end
 
-  newproperty(:todest) do
+  newproperty(:todest, :required_features => :nat) do
     desc "The value for the iptables --to-destination parameter"
   end
 
-  newproperty(:toports) do
+  newproperty(:toports, :required_features => :nat) do
     desc "The value for the iptables --to-ports parameter"
   end
 
-  newproperty(:reject) do
+  newproperty(:reject, :required_features => :custom_reject) do
     desc "The value for the iptables --reject-with parameter"
   end
 
-  newproperty(:log_level) do
+  newproperty(:log_level, :required_features => :logging) do
     desc "The value for the iptables --log-level parameter"
   end
 
-  newproperty(:log_prefix) do
+  newproperty(:log_prefix, :required_features => :logging) do
     desc "The value for the iptables --log-level parameter"
   end
 
-  newproperty(:icmp) do
+  newproperty(:icmp, :required_features => :match_icmp) do
     desc "The value for the iptables --icmp-type parameter"
 
     munge do |value|
@@ -165,7 +189,7 @@ Puppet::Type.newtype(:firewall) do
     end
   end
 
-  newproperty(:state, :array_matching => :all) do
+  newproperty(:state, :array_matching => :all, :required_features => :match_state) do
     desc "The value for the iptables -m state --state parameter.
       Possible values are: 'INVALID', 'ESTABLISHED', 'NEW', 'RELATED'.
       Accepts a single string or array."
@@ -176,12 +200,12 @@ Puppet::Type.newtype(:firewall) do
     end
   end
 
-  newproperty(:limit) do
+  newproperty(:limit, :required_features => :rate_limiting) do
     desc "The value for the iptables -m limit --limit parameter.
       Example values are: '50/sec', '40/min', '30/hour', '10/day'."
   end
 
-  newproperty(:burst) do
+  newproperty(:burst, :required_features => :rate_limiting) do
     desc "The value for the iptables --limit-burst parameter."
 
     validate do |value|
