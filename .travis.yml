@@ -16,6 +16,8 @@ env:
 matrix:
   exclude:
     - rvm: 1.9.2
+      gemfile: gemfiles/gemfile.ci
       env: BUILD_PUPPET_VER=2.6.9 BUILD_FACTER_VER=1.6.9
     - rvm: 1.9.3
+      gemfile: gemfiles/gemfile.ci
       env: BUILD_PUPPET_VER=2.6.9 BUILD_FACTER_VER=1.6.9
