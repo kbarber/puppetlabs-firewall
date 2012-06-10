@@ -75,7 +75,7 @@ describe 'iptables provider' do
         # If this option is enabled, make sure the parameters exactly match
         if data[:compare_all] then
           it "the parameter hash keys should be the same as returned by rules_to_hash" do
-            resource.keys.sort.should == data[:params].keys.sort
+            resource.keys.should =~ data[:params].keys
           end
         end
 
