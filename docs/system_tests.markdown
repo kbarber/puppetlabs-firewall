@@ -1,5 +1,3 @@
-[TOC]
-
 Running Acceptance Tests Using Vagrant
 ======================================
 
@@ -81,13 +79,44 @@ the setup for the tests themselves.
 For example, you should be able to get away with in VMware:
 
 * An OS installed from CD
-* SSH support, with your key in authorized_keys
+* SSH support, with your key in authorized keys
 * The 'git' command must be present
 * And obviously, you must have iptables installed
 
 The work that you will need to do on top of what has already been advised, is to
-create a suitable node.cfg file for systest (see acceptance/vagrant/vagrant*.cfg)
+create a suitable node.cfg file for systest (see acceptance/vagrant/vagrant.cfg)
 for an example.
+
+Writing Acceptance Tests
+========================
+
+puppet-acceptance
+-----------------
+
+[Puppet acceptance][0] all tests are written using the puppet-acceptance
+DSL, which is rspec or Test::Unit like in concept but is more aligned towards
+system tests.
+
+Tests are places inside the acceptance/tests directory in the relevant section.
+
+Each file is executed in lexical order and general failures within or failed
+assertions are reflected in the test report.
+
+The system accepts a number of switches as documented, and it also takes a
+configuration file with general setup, and lists of hosts to include in its
+tests. If multiple hosts are configured your tests can be written in a way
+to test on all these systems.
+
+DSL Helpers
+-----------
+
+Some helpers have been provided to wrap common functions when testing iptables.
+Its best to look at the existing tests for examples to learn how to use these
+for common cases.
+
+If you like, the helpers are documented in acceptance/helper.rb. If you find
+yourself repeating a task a lot, consider adding a method to the helper so
+others can use it as well.
 
 Reference
 =========

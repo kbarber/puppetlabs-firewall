@@ -3,13 +3,6 @@ test_name 'test puppet resource firewall command with real rules'
 iptables_setup
 
 agents.each do |host|
-  # Clear the rules, for this set of tests - we start with a blank slate.
-  step 'clear all rules on agent manually' do
-    iptables_flush_rules(host)
-  end
-
-  step 'insert some basic rules and make sure puppet resource returns the ' +
-    'right thing'
   on host, <<-EOS
 iptables -t filter -A INPUT -p tcp -s 1.1.1.1 -d 2.2.2.2 -j ACCEPT
   EOS

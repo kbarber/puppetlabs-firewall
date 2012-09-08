@@ -1,8 +1,6 @@
 Vagrant Image Maintenance
 =========================
 
-[TOC]
-
 Introduction
 ------------
 
