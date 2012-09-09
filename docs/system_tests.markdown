@@ -2,7 +2,7 @@ Running Acceptance Tests Using Vagrant
 ======================================
 
 This section will describe the setup required to get acceptance testing
-machines running using Vagrant.
+machines running using Vagrant and how to run the tests against them.
 
 Get the images running
 ----------------------
@@ -16,7 +16,7 @@ document 'vagrant_image_maintenance.markdown'.
 My environment before I started:
 
 *   Mac OS X 11.8.1
-*   VirtualBox 4.1.20
+*   VirtualBox 4.1.22
 *   git 1.7.11.3
 *   rvm 1.14.10
 
@@ -31,18 +31,14 @@ Grab the firewall code:
 
 Lets start by going into the vagrant project and firing up any images:
 
-    cd puppetlabs-firewall/acceptance/images
+    cd puppetlabs-firewall/acceptance/vagrant
     vagrant up
 
 At this point, if you don't already have our images they will be downloaded
 from the internet and registered to Vagrant for you.
 
-Test the image with SSH:
-
-    vagrant ssh
-
-Running the systest
--------------------
+Running systest
+---------------
 
 Grab the puppet-acceptance source code:
 
@@ -59,10 +55,11 @@ Sample command to run:
 
     FW_HOME=../puppetlabs-firewall
     ./systest.rb \
+      --keyfile $FW_HOME/acceptance/vagrant/keys/systest_key_rsa \
       -c $FW_HOME/acceptance/vagrant/vagrant-systest-nodes.cfg \
       --debug --type git \
       -p 2.7.x -f 1.6.x \
-      --yagr git://192.168.182.1/puppetlabs-firewall \
+      --yagr git://10.0.2.2/puppetlabs-firewall \
       --helper $FW_HOME/acceptance/helper.rb \
       -t $FW_HOME/acceptance/tests
 
@@ -93,14 +90,11 @@ Writing Acceptance Tests
 puppet-acceptance
 -----------------
 
-[Puppet acceptance][0] all tests are written using the puppet-acceptance
+All tests are written using the [puppet-acceptance][1]
 DSL, which is rspec or Test::Unit like in concept but is more aligned towards
 system tests.
 
 Tests are places inside the acceptance/tests directory in the relevant section.
-
-Each file is executed in lexical order and general failures within or failed
-assertions are reflected in the test report.
 
 The system accepts a number of switches as documented, and it also takes a
 configuration file with general setup, and lists of hosts to include in its

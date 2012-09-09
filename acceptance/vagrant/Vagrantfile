@@ -2,13 +2,36 @@
 # vi: set ft=ruby :
 
 Vagrant::Config.run do |config|
-  config.vm.box = "centos-58-64bit"
-  config.vm.box_url = "https://s3.amazonaws.com/kbarber-puppetlabs-firewall/vagrant/centos-58-64bit.box"
+  config.vm.define 'master' do |c|
+    c.vm.host_name = 'master.vm'
+    c.vm.network :hostonly, "10.50.60.2"
 
-  config.vm.provision :shell do |shell|
-    shell.inline = <<-EOS
-# TODO: install epel
-# TODO: install git
-    EOS
+    c.vm.box = "centos-58-64bit"
+    c.vm.box_url = "https://s3.amazonaws.com/kbarber-puppetlabs-firewall/vagrant/centos-58-64bit.box"
+
+    c.vm.forward_port 22, 22200
+
+
+    c.vm.provision :puppet do |p|
+      p.manifests_path = "manifests"
+      p.manifest_file = "site.pp"
+      p.module_path = "modules"
+    end
+  end
+
+  config.vm.define 'centos-58-64bit' do |c|
+    c.vm.host_name = 'centos-58-64bit.vm'
+    c.vm.network :hostonly, "10.50.60.3"
+
+    c.vm.box = "centos-58-64bit"
+    c.vm.box_url = "https://s3.amazonaws.com/kbarber-puppetlabs-firewall/vagrant/centos-58-64bit.box"
+
+    c.vm.forward_port 22, 22201
+
+    c.vm.provision :puppet do |p|
+      p.manifests_path = "manifests"
+      p.manifest_file = "site.pp"
+      p.module_path = "modules"
+    end
   end
 end

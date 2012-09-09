@@ -22,6 +22,13 @@ file { '/etc/puppet/modules/firewall':
 }
   EOS
 
+  # Run puppet on the client, so we get pluginsync
+  with_master_running_on(master, '--autosign true') do
+    agents.each do |host|
+      run_agent_on(host, "--test --pluginsync")
+    end
+  end
+
   # Establish some cleanup here. This gets executed even if we break systest.
   teardown { iptables_teardown }
 end
