@@ -19,6 +19,18 @@ GIT
       thor (> 0.14)
       vagrant (>= 0.9)
 
+GIT
+  remote: git://github.com/puppetlabs/puppet-acceptance.git
+  revision: b24b0838fa543679ea38f5ab6237f9298e6c76e0
+  specs:
+    puppet_acceptance (0.0.1)
+      fission
+      json
+      net-scp
+      net-ssh
+      rbvmomi
+      systemu
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -77,6 +89,10 @@ GEM
     posix-spawn (0.3.6)
     progressbar (0.11.0)
     rake (0.9.2.2)
+    rbvmomi (1.5.1)
+      builder
+      nokogiri (>= 1.4.1)
+      trollop
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -87,7 +103,9 @@ GEM
     rspec-mocks (2.11.2)
     ruby-hmac (0.4.0)
     ruby-vnc (1.0.1)
+    systemu (2.5.2)
     thor (0.16.0)
+    trollop (2.0)
     vagrant (1.0.3)
       archive-tar-minitar (= 0.5.2)
       childprocess (~> 0.3.1)
@@ -102,5 +120,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  puppet_acceptance!
   vagrant (= 1.0.3)
   veewee!

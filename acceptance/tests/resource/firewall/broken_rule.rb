@@ -1,6 +1,7 @@
 test_name 'broken rule'
 
-# This picks up a real bug, that needs fixing
+# This test picks up a real bug, that needs fixing, so you can ignore its
+# failure for now
 
 iptables_setup
 

@@ -19,41 +19,47 @@ My environment before I started:
 *   VirtualBox 4.1.22
 *   git 1.7.11.3
 *   rvm 1.14.10
+    - ruby-1.8.7
 
 ### Grab the code
 
+Change into your usual development directory, optionally creating one first:
+
+    mkdir ~/Development
+    cd ~/Development
+
 Grab the firewall code:
 
-    (from your dev dir ...)
     git clone git://github.com/puppetlabs/puppetlabs-firewall.git
 
 ### Bring up images
 
-Lets start by going into the vagrant project and firing up any images:
+Enter 'vagrant' directory and use bundler to grab gems:
 
     cd puppetlabs-firewall/acceptance/vagrant
+    bundle install
+
+Now use vagrant to fire up the machines:
+
     vagrant up
 
 At this point, if you don't already have our images they will be downloaded
 from the internet and registered to Vagrant for you.
 
+Prepare git
+-----------
+
+Run a git daemon on your own box if you like, this allows you to commit
+locally and test before pushing up to github:
+
+    git daemon --detach --export-all --base-path=~/Development
+
 Running systest
 ---------------
 
-Grab the puppet-acceptance source code:
-
-    (from your development directory)
-    git clone git://github.com/puppetlabs/puppet-acceptance.git
-    cd puppet-acceptance
-
-Run a git daemon on your own box if you like, this is allows you to commit
-locally and test before pushing up to github:
-
-    git daemon --detach --export-all --base-path=/Users/ken/Development
-
 Sample command to run:
 
-    FW_HOME=../puppetlabs-firewall
+    FW_HOME=~/Development/puppetlabs-firewall
     ./systest.rb \
       --keyfile $FW_HOME/acceptance/vagrant/keys/systest_key_rsa \
       -c $FW_HOME/acceptance/vagrant/vagrant-systest-nodes.cfg \
@@ -67,22 +73,7 @@ Running Acceptance Tests using other Virtual Solutions
 ======================================================
 
 You can consult the [puppet-acceptance][1] documentation. It contains helpers
-for at least VMware and EC2.
-
-Be mindful that all you really need is a system that you can SSH into and run
-git, the whole point of systest is that the majority of the work is done by
-the setup for the tests themselves.
-
-For example, you should be able to get away with in VMware:
-
-* An OS installed from CD
-* SSH support, with your key in authorized keys
-* The 'git' command must be present
-* And obviously, you must have iptables installed
-
-The work that you will need to do on top of what has already been advised, is to
-create a suitable node.cfg file for systest (see acceptance/vagrant/vagrant.cfg)
-for an example.
+for at VMware and EC2.
 
 Writing Acceptance Tests
 ========================
