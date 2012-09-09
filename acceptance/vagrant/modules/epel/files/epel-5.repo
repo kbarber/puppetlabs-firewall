@@ -1,6 +1,5 @@
 [epel]
 name=Extra Packages for Enterprise Linux 5 – $basearch
-#baseurl=http://download.fedoraproject.org/pub/epel/5/$basearch
 mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=epel-5&arch=$basearch
 failovermethod=priority
 enabled=1

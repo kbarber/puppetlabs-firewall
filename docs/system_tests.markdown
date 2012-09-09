@@ -61,7 +61,7 @@ Sample command to run:
 
     FW_HOME=~/Development/puppetlabs-firewall
     ./systest.rb \
-      -c $FW_HOME/acceptance/vagrant/vagrant-systest-nodes.cfg \
+      -c $FW_HOME/acceptance/vagrant/nodes/all-nodes.cfg \
       --type git \
       -p 2.7.x -f 1.6.x \
       --yagr git://10.0.2.2/puppetlabs-firewall \

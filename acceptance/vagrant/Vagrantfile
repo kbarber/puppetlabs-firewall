@@ -66,4 +66,20 @@ Vagrant::Config.run do |config|
       p.module_path = "modules"
     end
   end
+
+  config.vm.define 'centos-63-64bit' do |c|
+    c.vm.host_name = 'centos-63-64bit.vm'
+    c.vm.network :hostonly, "10.50.60.6"
+
+    c.vm.box = "centos-63-64bit"
+    c.vm.box_url = "https://s3.amazonaws.com/kbarber-puppetlabs-firewall/vagrant/centos-63-64bit.box"
+
+    c.vm.forward_port 22, 22204
+
+    c.vm.provision :puppet do |p|
+      p.manifests_path = "manifests"
+      p.manifest_file = "site.pp"
+      p.module_path = "modules"
+    end
+  end
 end
