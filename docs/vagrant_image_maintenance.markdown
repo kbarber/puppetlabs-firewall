@@ -22,8 +22,8 @@ reproduce them is stored in code.
 
 My environment before I started:
 
-*   Mac OS X 11.8.0
-*   VirtualBox 4.1.18-78361
+*   Mac OS X 11.8.1
+*   VirtualBox 4.1.22
 *   git 1.7.11.3
 *   rvm 1.14.10
 
@@ -41,9 +41,9 @@ Grab the firewall code:
 At this point if you are running a relatively new version of RVM, you should
 find your Ruby version and gemset change, otherwise do this:
 
-    rvm install ruby-1.9.3
+    rvm install ruby-1.8.7
     rvm gemset create puppetlabs-firewall-vagrant
-    rvm use ruby-1.9.3@puppetlabs-firewall-vagrant
+    rvm use ruby-1.8.7@puppetlabs-firewall-vagrant
 
 Then run bundler to grab the necessary bits:
 
@@ -55,7 +55,18 @@ Now we need to create some vagrant boxes. I use veewee for this as its totally
 reproducable from code/config. I borrowed heavily from the
 [veewee docs for vagrant][1] so if you get lost check those docs.
 
+Get a list of available templates:
+
+    veewee vbox templates
+
+Then create a new definition:
+
     veewee vbox define 'centos-58-64bit' 'CentOS-5.8-x86_64-netboot'
+
+You may need to configure items in the 'definitions' directory.
+
+Build the box:
+
     veewee vbox build 'centos-58-64bit'
 
 Now you need to wait ... say 'Yes' to download the image, and say 'Allow' to
@@ -72,7 +83,7 @@ Now we want to export it for vagrant to use:
 You should at that point have a file 'centos-58-64bit.box' in the current
 directory.
 
-You can test this box by using 'vagrant add' if you like, and attempting to
+You can test this box by using 'vagrant box add' if you like, and attempting to
 run the acceptance tests as per those instructions.
 
 Reference

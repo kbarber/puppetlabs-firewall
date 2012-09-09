@@ -1,0 +1,2 @@
+class systest::debian {
+}

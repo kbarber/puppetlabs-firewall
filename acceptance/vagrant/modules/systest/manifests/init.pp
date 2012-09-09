@@ -1,4 +1,19 @@
 class systest {
+  case $operatingsystem {
+    'debian': {
+      class { 'systest::debian': }
+    }
+    'ubuntu': { 
+      class { 'systest::ubuntu': }
+    }
+    'centos': {
+      class { 'systest::centos': }
+    }
+    default: {
+      fail("Operating system not supported")
+    }
+  }
+
   host { 'puppet':
     ip => '10.50.60.2',
   }
@@ -8,14 +23,11 @@ class systest {
   host { 'centos-58-64bit.vm':
     ip => '10.50.60.3',
   }
-
-  service { 'iptables':
-    ensure => stopped,
-    enable => false,
+  host { 'debian-605-64bit.vm':
+    ip => '10.50.60.4',
   }
-
-  class { 'epel':
-    stage => 'pre',
+  host { 'ubuntu-1104-64bit.vm':
+    ip => '10.50.60.5',
   }
 
   package { 'git':
