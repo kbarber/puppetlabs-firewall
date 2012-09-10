@@ -1,4 +1,4 @@
-test_name 'create single rule'
+test_name 'Create a single rule and make sure iptables reflects it'
 
 iptables_setup
 

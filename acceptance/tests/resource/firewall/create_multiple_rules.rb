@@ -1,4 +1,4 @@
-test_name 'create_multiple_rules'
+test_name 'Create multiple rules and make sure iptables reflects them'
 
 iptables_setup
 
