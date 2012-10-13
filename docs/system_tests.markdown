@@ -59,14 +59,13 @@ Running systest
 
 Sample command to run:
 
-    FW_HOME=~/Development/puppetlabs-firewall
     ./systest.rb \
-      -c $FW_HOME/acceptance/vagrant/nodes/all-nodes.cfg \
+      -c `pwd`/../../acceptance/vagrant/nodes/all-nodes.cfg \
       --type git \
       -p 2.7.x -f 1.6.x \
       --yagr git://10.0.2.2/puppetlabs-firewall \
-      --helper $FW_HOME/acceptance/helper.rb \
-      -t $FW_HOME/acceptance/tests
+      --helper `pwd`/../../acceptance/helper.rb \
+      -t `pwd`/../../acceptance/tests
 
 Running Acceptance Tests using other Virtual Solutions
 ======================================================
