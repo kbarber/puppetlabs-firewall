@@ -63,8 +63,11 @@ describe 'iptables provider' do
   end
 
   it 'should ignore lines with fatal errors' do
-    Puppet::Util::Execution.expects(:execute).with(['/sbin/iptables-save'], any_parameters).
-      returns("FATAL: Could not load /lib/modules/2.6.18-028stab095.1/modules.dep: No such file or directory")
+    msg = "FATAL: Could not load /lib/modules/2.6.18-028stab095.1/modules.dep: No such file or directory"
+    Puppet::Util::Execution.stubs(:execute).
+      with(['/sbin/iptables-save'], any_parameters).returns(msg)
+    provider.stubs(:execute).
+      with(['/sbin/iptables-save'], any_parameters).returns(msg)
 
     provider.instances.length.should == 0
   end
