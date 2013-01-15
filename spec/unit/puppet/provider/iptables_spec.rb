@@ -50,7 +50,7 @@ describe 'iptables provider' do
     # Stub iptables version
     Facter.fact(:iptables_version).stubs(:value).returns("1.4.2")
 
-    Puppet::Util::Execution.stubs(:execute).returns ""
+    Puppet::Util::Execution.stubs(:execute).with(['/sbin/iptables-save'], any_parameters).returns ""
     Puppet::Util.stubs(:which).with("/sbin/iptables-save").
       returns "/sbin/iptables-save"
   end
@@ -63,7 +63,7 @@ describe 'iptables provider' do
   end
 
   it 'should ignore lines with fatal errors' do
-    Puppet::Util::Execution.stubs(:execute).with(['/sbin/iptables-save']).
+    Puppet::Util::Execution.expects(:execute).with(['/sbin/iptables-save'], any_parameters).
       returns("FATAL: Could not load /lib/modules/2.6.18-028stab095.1/modules.dep: No such file or directory")
 
     provider.instances.length.should == 0
