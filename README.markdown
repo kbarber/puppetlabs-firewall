@@ -15,7 +15,7 @@
     * [Default rules - Setting up general configurations for all firewalls](#default-rules)
     * [Application-specific rules - Options for configuring and managing firewalls across applications](#application-specific-rules)
     * [Other Rules](#other-rules)
-5. [Implementation Reference - An under-the-hood peek at what the module is doing](#implementation)
+5. [Reference - An under-the-hood peek at what the module is doing](#reference)
 6. [Limitations - OS compatibility, etc.](#limitations)
 7. [Development - Guide for contributing to the module](#development)
     * [Tests - Testing your configuration](#tests)
@@ -265,7 +265,7 @@ Or
     puppet doc -r type
     (and search for firewall)
 
-##Implementation Reference
+##Reference
 
 Classes:
 
