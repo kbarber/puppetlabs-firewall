@@ -10,7 +10,7 @@
 4. [Usage - Configuration and customization options](#usage)
     * [Default rules - Setting up general configurations for all firewalls](#default-rules)
     * [Application-specific rules - Options for configuring and managing firewalls across applications](#application-specific-rules)
-    * [Parameters - Parameters available for configuration](#parameters)
+    * [Other Rules](#other-rules)
 5. [Implementation Reference - An under-the-hood peek at what the module is doing](#implementation)
 6. [Limitations - OS compatibility, etc.](#limitations)
 7. [Development - Guide for contributing to the module](#development)
