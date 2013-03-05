@@ -389,7 +389,62 @@ Or
     puppet doc -r type
     (and search for firewall)
 
-##Implementation
+##Implementation Reference
+
+Classes:
+
+* [firewall](#class:-firewall)
+* [firewall::linux](#class:-firewalllinux)
+* [firewall::linux::debian](#class:-firewalllinuxdebian)
+* [firewall::linux::redhat](#class:-firewalllinuxredhat)
+
+Providers:
+
+* [firewall](#provider:-firewall)
+
+Types:
+
+* [ip6tables]()**TODO: is this right?**
+* [firewall](#type:-firewall)
+* [firewallchain](#type:-firewallchain)
+
+Facts:
+
+* [ip6tables_version](#fact:-ip6tablesversion)
+* [iptables_persistent_version](#fact:-iptablespersistentversion)
+* [iptables_version](#fact:-iptablesversion)
+
+
+
+
+####Class: firewall
+
+ Manages the installation of packages for operating systems that are currently supported by the firewall type.
+
+####Class: firewall::linux
+
+Manifests for managing the required packages and services on supported Linux
+operating systems. These will be required for persistence.
+
+####Type: firewall
+
+This type provides the capability to manage firewall rules within
+    puppet.
+
+####Type:: firewallchain
+
+This type provides the capability to manage rule chains for firewalls.
+
+####Fact: ip6tables_version
+
+The module provides a Facter fact that can be used to determine what the default version of ip6tables is for your operating system/distribution. 
+
+####Fact: iptables_persistent_version
+
+
+####Fact: iptables_version
+
+he module provides a Facter fact that can be used to determine what the default version of ip6tables is for your operating system/distribution.    
 
 **So there are native resource types: iptables and ip6tables, as well as corresponding Facter facts for each. I'm not sure how to present that here?**
 
