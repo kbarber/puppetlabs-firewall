@@ -1,5 +1,4 @@
-firewall
-=========
+#firewall
 
 [![Build Status](https://travis-ci.org/puppetlabs/puppetlabs-firewall.png?branch=master)](https://travis-ci.org/puppetlabs/puppetlabs-firewall)
 
@@ -9,26 +8,23 @@ firewall
 2. [Module Description - What does the module do?](#module-description)
 3. [Setup - The basics of getting started with Firewall](#setup)
 4. [Usage - The classes and parameters available for configuration](#usage)
-    a. [Default rules - Setting up general configurations for all firewalls](#default-rules)
-    b. [Application-specific rules - Options for configuring and managing firewalls across applications](#application-specific-rules)
-    c. [Parameters - Parameters available for configuration](#parameters)
+    * [Default rules - Setting up general configurations for all firewalls](#default-rules)
+    * [Application-specific rules - Options for configuring and managing firewalls across applications](#application-specific-rules)
+    * [Parameters - Parameters available for configuration](#parameters)
 5. [Implementation - An under-the-hood peek at what the module is doing](#implementation)
 6. [Limitations - OS compatibility, etc.](#limitations)
 7. [Development - Guide for contributing to the module](#development)
-    a. [Tests - Testing your configuration](#tests)  
+    * [Tests - Testing your configuration](#tests)  
 
-Overview
----------
+##Overview
 
 The Firewall module lets you manage firewall rules with Puppet.
 
-Module Description
--------------------
+##Module Description
 
 PuppetLabs Firewall introduces the resource 'firewall', which is then used to manage and configure firewall rules from within the Puppet DSL. This module offers support for iptables, ip6tables, and ebtables. 
 
-Setup
------
+##Setup
 
 **What Firewall affects:**
 
@@ -41,6 +37,10 @@ Setup
 **Setup Requirements**
 
 Firewall uses Ruby-based providers, so you must have (pluginsync enabled)[http://docs.puppetlabs.com/guides/plugins_in_modules.html#enabling-pluginsync]. 
+
+**Upgrade Requirements**
+
+
 
 ###Beginning with Firewall
 
@@ -116,8 +116,7 @@ To put it all together: the `before` parameter in `Firewall {}` ensures `my_fw::
 * run your rules (defined in code)
 * run the rules in `my_fw::post`
 
-Usage
------
+##Usage
 
 There are two kinds of firewall rules you can use with Firewall: default rules and application-specific rules. Default rules apply to general firewall settings, whereas application-specific rules manage firewall settings of a specific application, node, etc. 
 
@@ -200,17 +199,17 @@ You can also apply firewall rules to specific nodes. Usually, you will want to p
 
 The parameters available to any firewall rule are: 
 
-####`action`
+#####`action`
 
 The action to perform on a match. Valid values are 'accept' (the packet is accepted), 'reject' (the packet is rejected with a suitable ICMP response), or 'drop' (the packet is dropped).
 
 If no value is specified it will simply match the rule but perform no action, unless you've provide a provider-specific parameter (such as `jump`). 
 
-####`burst`
+#####`burst`
 
 The rate limiting burst value (per second) before limit checks apply. Values can match `/^\d+$/`.  Requires rate_limiting.
 
-####`chain`
+#####`chain`
 
 Name of the chain to use. You can provide a user-based chain or use one of the built-ins
 
@@ -222,7 +221,7 @@ Name of the chain to use. You can provide a user-based chain or use one of the b
 
 Values can match `/^[a-zA-Z0-9\-_]+$/`. Requires iptables.
 
-####`destination`
+#####`destination`
   
 An array of destination addresses to match. 
 
@@ -230,7 +229,7 @@ An array of destination addresses to match.
 
 The destination can also be an IPv6 address if your provider supports it.
 
-####`dport`
+#####`dport`
 
 The destination port to match for this filter (if the protocol supports ports). Will accept a single element or an array.
 
@@ -244,23 +243,23 @@ For example
 
 This would cover ports 1 to 1024.
 
-####`ensure`
+#####`ensure`
 
 Manages the state of the rule. Defaults to 'present'.
 
-####`gid`
+#####`gid`
   
 GID or Group-owner matching rule.  Accepts a string argument only, as iptables does not accept multiple GID in a single statement. Requires owner.
  
-####`icmp`
+#####`icmp`
 
 The type of ICMP packet to match when matching packets. Requires icmp_match.
 
-####`iniface`
+#####`iniface`
 
 Input interface to filter on. Values can match `/^[a-zA-Z0-9\-_]+$/`. Requires interface_match.
 
-####`jump`
+#####`jump`
 
 The value for the `iptables --jump` parameter. Normal values are
 
@@ -278,25 +277,25 @@ For the values ACCEPT, DROP and REJECT you must use the generic `action` paramet
 
 Setting both the `accept` and `jump` parameters will cause an error, as only one of the options should be set.   Requires iptables.
 
-####`limit`
+#####`limit`
 
 Rate limiting value for matched packets. The format is: `rate/[/second/|/minute|/hour|/day]`.
 
 Example values are: '50/sec', '40/min', '30/hour', '10/day'."   Requires rate_limiting.
 
-####`log_level`
+#####`log_level`
 
 Combined with `jump => "LOG"`, specifies the system log level to log to. Requires log_level.
 
-####`log_prefix`
+#####`log_prefix`
 
 Combined with `jump => "LOG"`, specifies the log prefix to use when logging.   Requires log_prefix.
 
-####`outiface`
+#####`outiface`
 
 Output interface to filter on. Values can match `/^[a-zA-Z0-9\-_]+$/`. Requires interface_match.
 
-####`port`
+#####`port`
 
 The destination or source port to match for this filter (if the protocol supports ports). Will accept a single element or an array.
 
@@ -310,15 +309,15 @@ For example
 
 This would cover ports 1 to 1024.
 
-####`proto`
+#####`proto`
 
 The specific protocol to match for the rule. By default this is 'tcp'. Valid values are `tcp`, `udp`, `icmp`, `ipv6-icmp`, `esp`, `ah`, `vrrp`, `igmp`, `ipencap`, `all`.
 
-####`reject`
+#####`reject`
 
 Combined with `jump => "REJECT"` allows you to specify a different ICMP response to be sent back to the packet sender. Requires reject_type.
 
-####`source`
+#####`source`
 
 An array of source addresses. 
 
@@ -326,7 +325,7 @@ An array of source addresses.
 
 The source can also be an IPv6 address if your provider supports it.
 
-####`sport`
+#####`sport`
 
 The source port to match for this filter (if the protocol supports ports). Will accept a single element or an array.
 
@@ -340,7 +339,7 @@ For example
 
 This would cover ports 1 to 1024.
 
-####`state`
+#####`state`
 
 Matches a packet based on its state in the firewall stateful inspection table. Values can be
 
@@ -351,7 +350,7 @@ Matches a packet based on its state in the firewall stateful inspection table. V
   
 Requires state_match.
 
-####`table`
+#####`table`
 
 The table to use. Can be
 
@@ -363,23 +362,23 @@ The table to use. Can be
 
 Requires iptables.
 
-####`todest`
+#####`todest`
 
 Use this parameter when using `jump => "DNAT"` in order to specify the new destination address. Requires dnat.
 
-####`toports`
+#####`toports`
 
 For DNAT, this is the port that will replace the destination port. Requires dnat.
 
-####`tosource`
+#####`tosource`
 
 Use this parameter when using `jump => "SNAT"` in order to specify the new source address. Requires snat.
 
-####`uid`
+#####`uid`
  
 UID or Username-owner matching rule.  Accepts a string argument only, as iptables does not accept multiple UID in a single statement. Requires owner.
 
-### Additional Information
+###Additional Information
 
 You can access the inline documentation:
 
@@ -390,13 +389,11 @@ Or
     puppet doc -r type
     (and search for firewall)
 
-Implementation
---------------
+##Implementation
 
 **So there are native resource types: iptables and ip6tables, as well as corresponding Facter facts for each. I'm not sure how to present that here?**
 
-Limitations
------------
+##Limitations
 
 Please note, we only aim support for the following distributions and versions
 
@@ -416,8 +413,7 @@ Bugs can be reported using Github Issues:
 
 <http://github.com/puppetlabs/puppetlabs-firewall/issues>
 
-Development
------------
+##Development
 
 Puppet Labs modules on the Puppet Forge are open projects, and community contributions are essential for keeping them great. We can’t access the huge number of platforms and myriad of hardware, software, and deployment configurations that Puppet is intended to serve.
 
@@ -442,7 +438,7 @@ But plans are to support lots of other firewall implementations:
 
 If you have knowledge in these technologies, know how to code, and wish to contribute to this project, we would welcome the help.
 
-### Testing
+###Testing
 
 Make sure you have:
 
