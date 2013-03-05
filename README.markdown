@@ -36,7 +36,7 @@ PuppetLabs Firewall introduces the resource 'firewall', which is then used to ma
 
 **Setup Requirements**
 
-Firewall uses Ruby-based providers, so you must have (pluginsync enabled)[http://docs.puppetlabs.com/guides/plugins_in_modules.html#enabling-pluginsync]. 
+Firewall uses Ruby-based providers, so you must have [pluginsync enabled](http://docs.puppetlabs.com/guides/plugins_in_modules.html#enabling-pluginsync). 
 
 **Upgrade Requirements**
 
@@ -393,26 +393,26 @@ Or
 
 Classes:
 
-* [firewall](#class:-firewall)
-* [firewall::linux](#class:-firewalllinux)
-* [firewall::linux::debian](#class:-firewalllinuxdebian)
-* [firewall::linux::redhat](#class:-firewalllinuxredhat)
+* [firewall](#class-firewall)
+* [firewall::linux](#class-firewalllinux)
+* [firewall::linux::debian](#class-firewalllinuxdebian)
+* [firewall::linux::redhat](#class-firewalllinuxredhat)
 
 Providers:
 
-* [firewall](#provider:-firewall)
+* [firewall](#provider-firewall)
 
 Types:
 
 * [ip6tables]()**TODO: is this right?**
-* [firewall](#type:-firewall)
-* [firewallchain](#type:-firewallchain)
+* [firewall](#type-firewall)
+* [firewallchain](#type-firewallchain)
 
 Facts:
 
-* [ip6tables_version](#fact:-ip6tablesversion)
-* [iptables_persistent_version](#fact:-iptablespersistentversion)
-* [iptables_version](#fact:-iptablesversion)
+* [ip6tables_version](#fact-ip6tablesversion)
+* [iptables_persistent_version](#fact-iptablespersistentversion)
+* [iptables_version](#fact-iptablesversion)
 
 
 
