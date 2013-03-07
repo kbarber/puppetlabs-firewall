@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 group :development, :test do
   gem 'puppetlabs_spec_helper', :require => false
+  gem 'rspec-system', :path => '../rspec-system'
 end
 
 if puppetversion = ENV['PUPPET_GEM_VERSION']

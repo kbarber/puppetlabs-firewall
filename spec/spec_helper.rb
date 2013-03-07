@@ -23,4 +23,21 @@ RSpec.configure do |config|
   config.mock_with :mocha
   config.module_path = File.join(fixture_path, 'modules')
   config.manifest_dir = File.join(fixture_path, 'manifests')
+  config.system_tmp = File.join(File.dirname(__FILE__), 'system', 'tmp')
+  config.system_nodesets = {
+    'centos-58-x64' => {
+      :nodes => {
+        'main' => {
+          :base => 'centos-58-x64',
+        },
+      },
+    },
+    'debian-606-x64' => {
+      :nodes => {
+        'main' => {
+          :prefab => 'debian-606-x64',
+        },
+      },
+    },
+  }
 end
