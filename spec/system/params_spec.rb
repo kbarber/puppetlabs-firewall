@@ -124,4 +124,26 @@ firewall { '#{name}':
       r.exit_code.should be_zero
     end
   end
+
+  it 'negation rule' do
+    iptables_flush_all_tables
+
+    ppm1 = pp({
+      'name' => '004 log all INVALID packets',
+      'chain' => 'INPUT',
+      'destination' => '"! 1.1.1.1"',
+    })
+
+    puppet_apply(ppm1) do |r|
+      r.exit_code.should == 2
+      r.stderr.should be_empty
+      r.refresh
+      r.stderr.should be_empty
+      r.exit_code.should be_zero
+    end
+
+    shell('/sbin/iptables-save') do |r|
+      r.stdout.should =~ /! --destination 1.1.1.1'/
+    end
+  end
 end

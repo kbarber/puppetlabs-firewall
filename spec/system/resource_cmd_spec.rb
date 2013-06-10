@@ -50,4 +50,18 @@ describe 'puppet resource firewall command:' do
       its(:stderr) { should be_empty }
     end
   end
+
+  context 'should work with negated rules' do
+    before :all do
+      iptables_flush_all_tables
+      shell('/sbin/iptables -A INPUT -j ACCEPT ! --destination 1.1.1.1')
+      shell('/sbin/iptables-save')
+    end
+
+    context puppet_resource('firewall') do
+      its(:stdout) { should =~ /destination\s+=>\s+'! 1\.1\.1\.1\/32'/ }
+      its(:stderr) { should be_empty }
+      its(:exit_code) { should be_zero }
+    end
+  end
 end
